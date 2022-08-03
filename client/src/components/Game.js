@@ -1,28 +1,20 @@
 import React from "react"
 import Piece from "./Piece"
-import { Grid } from "@mui/material"
+import Board from "./Board"
 
 export default function Game(props) {
-    let board = Array(10).fill(0).map(row => new Array(10).fill(0))
-
-    const boardElement = board.map(arr => {
-        return (
-          <Grid item>
-            {arr.map(i => {
-                return (
-                    <Piece 
-                        playerOne={props.currPlayer} 
-                    />
-                )
-            })}
-          </Grid>
-        )
-      }) 
+    /*
+    let boardElement = Array(10).fill(0).map((row, index) => new Array(10).fill(
+        <Piece 
+            playerOne={props.currPlayer} 
+            id={index}
+        />
+    ))
+    */
 
     return (
-        <div>
-            <Grid container>{boardElement}</Grid>
-        </div>
-       
+        <div className='board-container'>
+            <Board playerOne={props.playerOne}/>     
+        </div>  
     )
 }

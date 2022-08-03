@@ -1,8 +1,7 @@
 import React from 'react'
-import io from "socket.io-client"
+import { useState, useEffect } from 'react'
+import socket from "./Socket"
 import Game from "./components/Game"
-
-const socket = io.connect("http://localhost:3001")
 
 function App() {
   const [isPlayerOne, setIsPlayerOne] = React.useState(true)
@@ -18,6 +17,7 @@ function App() {
 
   React.useEffect(() => {
     socket.on("receive_change_turn", () => {
+      console.log("HELLO!!!!")
       changeTurn()
     })
   }, [socket])
@@ -27,7 +27,7 @@ function App() {
       <h1>CONNECT FOUR</h1>
       <h4>Current Player: {isPlayerOne ? "One" : "Two"}</h4>
       <button onClick={sendChangeTurn}>CHANGE TURN</button>
-      <Game currPlayer={isPlayerOne}/>
+      <Game playerOne={isPlayerOne} />
     </div>
   );
 }

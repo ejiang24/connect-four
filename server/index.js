@@ -16,13 +16,20 @@ const io = new Server(server, {
 
 io.on("connection", (socket) => {
     console.log(`User Connected: ${socket.id}`)
-
     socket.on("change_turn", () => {
         //emitting to other people
         //broadcast sends to everyone but self
+        console.log("hello i am the server")
         socket.broadcast.emit("receive_change_turn")
     })
+    
+    socket.on("claim_token", () => {
+        socket.broadcast.emit("receive_claim_token")
+    })
+    
 })
+
+
 
 server.listen(3001, () => {
     console.log("SERVER IS RUNNING")
