@@ -1,24 +1,48 @@
+* {
+    box-sizing: border-box;  
+    margin: 0px;
+    transition: background-color 0.3s ease;
+}
+
+h1 {
+    background-color: lightblue;
+    text-align: center;
+    padding: 30px;
+    font-family: Inconsolata;
+}
+
 .piece0 {
-   background-color: gray;
-   width: 20px;
-   margin: 10px;
+    background-color: white;
+    width: 40px;
+    height: 40px;
+    margin: 10px;
+    border-radius: 20px;
 }
 
 .piece1 {
     background-color: red;
-    width: 20px;
+    width: 40px;
+    height: 40px;
     margin: 10px;
+    border-radius: 20px;
 }
 
 .piece2 {
     background-color: blue;
-    width: 20px;
+    width: 40px;
+    height: 40px;
     margin: 10px;
+    border-radius: 20px;
 }
 
 .board-container {
+    margin: auto;
+    padding: 10px;
     display: grid;
     grid-template-columns: repeat(10, 1fr);
+    background-color: #ffd902;
+    max-width: 600px;
+    justify-self: center;
 }
 
 .col {

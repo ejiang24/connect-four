@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import socket from "./Socket"
-import Game from "./components/Game"
+import Board from "./components/Board"
 
 function App() {
   const [isPlayerOne, setIsPlayerOne] = React.useState(true)
@@ -27,7 +27,7 @@ function App() {
       <h1>CONNECT FOUR</h1>
       <h4>Current Player: {isPlayerOne ? "One" : "Two"}</h4>
       <button onClick={sendChangeTurn}>CHANGE TURN</button>
-      <Game playerOne={isPlayerOne} />
+      <Board playerOne={isPlayerOne} setPlayer={setIsPlayerOne}/>
     </div>
   );
 }

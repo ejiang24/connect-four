@@ -26,7 +26,7 @@ export default function Piece(props) {
 
     return(
         <div className={`piece${props.value}`} >
-            <p>{props.col}, {props.row}</p>
+            <p></p>
         </div>
     )
 }

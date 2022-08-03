@@ -46,11 +46,11 @@ export default function Board(props) {
         return -1
     }
 
-    
     function dropPiece(col, row) {
+        props.setPlayer(prev => !prev)
         board[col][row] = props.playerOne ? "1" : "2"
         setBoard(prev => [...prev])
-        winCheck(col, row, 1)
+        winCheck(col, row, 1)   
     }
     
     function winCheck(col, row, val) {
@@ -59,6 +59,6 @@ export default function Board(props) {
     }
 
     return (
-        <div className='board-container'>{boardElement}{console.log(boardElement)}</div>
+        <div className='board-container'>{boardElement}</div>
     )
 }
