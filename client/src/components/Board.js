@@ -1,7 +1,8 @@
 import React from "react"
 import Piece from "./Piece"
+import socket from "../Socket"
 
-export default function Board(props) {
+export default function Board() {
     const [board, setBoard] = React.useState([
         [0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0],
@@ -12,14 +13,16 @@ export default function Board(props) {
         [0, 0, 0, 0, 0, 0]
     ])
 
+    const [isPlayerOne, setIsPlayerOne] = React.useState(true)
+
+    function changeTurn() {
+        setIsPlayerOne(prev => !prev) 
+    }
+
     const boardElement = board.map((arr, index) => {
         return (
             <div 
-                onMouseEnter={() => {
-                    console.log("col: " + index)
-                    console.log("empty row index: " + findRow(index))
-                }}
-                onClick={() => dropPiece(index, findRow(index))}
+                onClick={() => sendDropPiece(index, findRow(index), isPlayerOne)}
             >
                 {
                     arr.map((row, index2) => {
@@ -46,19 +49,36 @@ export default function Board(props) {
         return -1
     }
 
-    function dropPiece(col, row) {
-        props.setPlayer(prev => !prev)
-        board[col][row] = props.playerOne ? "1" : "2"
+    //TODO: redesign send change turn so it's all in board (or something)
+    function dropPiece(col, row, isPlayerOne) {
+        board[col][row] = isPlayerOne ? "1" : "2" 
         setBoard(prev => [...prev])
-        winCheck(col, row, 1)   
+        winCheck(col, row)   
+        changeTurn()
     }
+
+    function sendDropPiece(col, row, isPlayerOne) {
+        dropPiece(col, row, isPlayerOne)
+        socket.emit("drop_piece", [col, row, isPlayerOne])
+    }
+
+    React.useEffect(() => {
+        socket.on("receive_drop_piece", (data) => {
+            dropPiece(data[0], data[1], data[2])
+        })
+    }, [socket])
+
     
-    function winCheck(col, row, val) {
-        if(board[col+1][row] == 1)
+    function winCheck(col, row) {
+        if(board[col][row+1] == 1)
             console.log("WINNER!")
     }
 
     return (
-        <div className='board-container'>{boardElement}</div>
+        <div>
+            <h4>Current Player: {isPlayerOne ? "One" : "Two"}</h4>
+            <div className='board-container'>{boardElement}</div>
+        </div>
+        
     )
 }

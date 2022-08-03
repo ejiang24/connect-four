@@ -23,8 +23,8 @@ io.on("connection", (socket) => {
         socket.broadcast.emit("receive_change_turn")
     })
     
-    socket.on("claim_token", () => {
-        socket.broadcast.emit("receive_claim_token")
+    socket.on("drop_piece", (data) => {
+        socket.broadcast.emit("receive_drop_piece", data)
     })
     
 })
