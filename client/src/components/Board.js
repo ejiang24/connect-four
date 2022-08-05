@@ -52,6 +52,9 @@ export default function Board() {
         return -1
     }
 
+    //TODO: win check, draw check(?)
+
+    //TODO: IF INVALID LOCATION, DISPLAY MESSAGE TO USER
     function dropPiece(col, row, isPlayerOne) {
         board[col][row] = isPlayerOne ? "1" : "2" 
         setBoard(prev => [...prev])

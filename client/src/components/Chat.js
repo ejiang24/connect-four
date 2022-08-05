@@ -17,7 +17,7 @@ export default function Chat() {
 
     const messagesElement = messageList.map(message => {
         return (
-            <p key={message}>{message}</p>
+            <p className="message" key={message}>{message}</p>
         )
     })
 
@@ -31,7 +31,6 @@ export default function Chat() {
         <div className='chat-container'>
             <h3>Chat room yay</h3>
             <div className='message-container'>
-                <p>talk!!!</p>
                 {messagesElement}
             </div>
             <input 
