@@ -1,7 +1,6 @@
 import React from 'react'
-import { useState, useEffect } from 'react'
-import socket from "./Socket"
 import Board from "./components/Board"
+import Chat from "./components/Chat"
 
 function App() {
   
@@ -27,7 +26,12 @@ function App() {
   return (
     <div className="App">
       <h1>CONNECT FOUR</h1>
-      <Board />
+      <main>
+        <div className="game-container">
+          <Board />
+          <Chat />
+        </div>
+      </main> 
     </div>
   );
 }

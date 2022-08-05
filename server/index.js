@@ -16,19 +16,17 @@ const io = new Server(server, {
 
 io.on("connection", (socket) => {
     console.log(`User Connected: ${socket.id}`)
-    socket.on("change_turn", () => {
-        //emitting to other people
-        //broadcast sends to everyone but self
-        console.log("hello i am the server")
-        socket.broadcast.emit("receive_change_turn")
-    })
     
     socket.on("drop_piece", (data) => {
+        console.log("yuh")
         socket.broadcast.emit("receive_drop_piece", data)
     })
     
+    socket.on("send_message", (msg) => {
+        console.log("server received: " + msg)
+        socket.broadcast.emit("receive_message", msg)
+    })
 })
-
 
 
 server.listen(3001, () => {

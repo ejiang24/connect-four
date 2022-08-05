@@ -1,7 +1,19 @@
 * {
     box-sizing: border-box;  
     margin: 0px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease;   
+}
+
+main {
+    padding: 20px;
+    background-color: lightyellow;
+}
+
+.game-container {
+    display: flex;
+    height: 700px;
+    justify-content: center;
+    align-items: center;
 }
 
 h1 {
@@ -13,39 +25,70 @@ h1 {
 
 .piece0 {
     background-color: white;
-    width: 40px;
-    height: 40px;
+    width: 70px;
+    height: 70px;
     margin: 10px;
-    border-radius: 20px;
+    border-radius: 35px;
 }
 
 .piece1 {
     background-color: red;
-    width: 40px;
-    height: 40px;
+    width: 70px;
+    height: 70px;
     margin: 10px;
-    border-radius: 20px;
+    border-radius: 35px;
 }
 
 .piece2 {
     background-color: blue;
-    width: 40px;
-    height: 40px;
+    width: 70px;
+    height: 70px;
     margin: 10px;
-    border-radius: 20px;
+    border-radius: 35px;
 }
 
 .board-container {
+    background-color: goldenrod;
+    height: 600px;
+    display: block;
+}
+
+.board {
     margin: auto;
-    padding: 10px;
+    padding: 20px;
     display: grid;
-    grid-template-columns: repeat(10, 1fr);
+    /*grid-template-columns: repeat(10, 1fr);*/
+    grid-template-columns: 100px 100px 100px 100px 100px 100px 100px;
+    
+    justify-content: space-evenly;
+    justify-items: center;
+    align-content: space-evenly;
+    align-items: center;
+
     background-color: #ffd902;
-    max-width: 600px;
-    justify-self: center;
+    max-width: 700px;
+    max-height: 600px;
+    
 }
 
 .col {
     border-style: solid;
     border-width: 3px;
 }
+
+.chat-container {
+    background-color: green;
+    padding: 5px;
+    height: 600px;
+    width: 100%;
+    margin: 30px;
+    display: block;
+}
+
+.message-container {
+    background-color: white;
+    height: 90%;
+    overflow: scroll;  
+}
+
+
