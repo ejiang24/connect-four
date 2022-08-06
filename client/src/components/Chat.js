@@ -6,18 +6,23 @@ export default function Chat() {
     const [messageList, setMessageList] = React.useState([])
 
     function displayMessage(msg) {
-        setMessageList(prev => [...prev, msg])
+        if (msg.length > 0){
+            setMessageList(prev => [...prev, msg])
+        } 
+        console.log("messageList: " + messageList)
     }
 
     function sendMessage(msg) { 
+        console.log("passed in: " + msg)
         displayMessage(msg)
         setMessage("")
         socket.emit("send_message", msg)
     }
 
+    //TODO: MAKE SURE THE KEYS ARE UNIQUE LOL
     const messagesElement = messageList.map(message => {
         return (
-            <p className="message" key={message}>{message}</p>
+            <p className="message" key={messageList.length}>{message}</p>
         )
     })
 
@@ -41,7 +46,9 @@ export default function Chat() {
                 }}
                 onKeyDown={(event) => {
                     if (event.key === 'Enter') {
+                        console.log("State: " + message)
                         sendMessage(message)
+                        console.log("State after: " + message)
                     }
                 }}
             />

@@ -18,12 +18,10 @@ io.on("connection", (socket) => {
     console.log(`User Connected: ${socket.id}`)
     
     socket.on("drop_piece", (data) => {
-        console.log("yuh")
         socket.broadcast.emit("receive_drop_piece", data)
     })
     
     socket.on("send_message", (msg) => {
-        console.log("server received: " + msg)
         socket.broadcast.emit("receive_message", msg)
     })
 })

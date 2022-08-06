@@ -12,7 +12,7 @@ body {
 }
 
 main {
-   background-color: rgb(255, 254, 225);
+   background-color: rgb(255, 254, 239);
    margin: 0px;
    padding: 20px;
 }
@@ -42,7 +42,7 @@ h1 {
 }
 
 .piece0 {
-    background-color: rgb(255, 254, 225);
+    background-color: rgb(255, 254, 239);
     width: 66px;
     height: 66px;
     margin: 10px;
@@ -75,14 +75,15 @@ h1 {
     padding: 10px;
     display: grid;
     /*grid-template-columns: repeat(10, 1fr);*/
-    grid-template-columns: 100px 100px 100px 100px 100px 100px 100px;
+    grid-template-columns: 90px 90px 90px 90px 90px 90px 90px;
+    
+    row-gap: 100px;
     
     justify-content: space-evenly;
     justify-items: center;
-    align-content: space-evenly;
-    align-items: center;
-
-    background-color: #ffd902;
+    
+    
+    background-color: #fad815;
     max-width: 700px;
     max-height: 600px; 
 }
@@ -90,7 +91,8 @@ h1 {
 .chat-container {
     padding: 5px;
     height: 500px;
-    width: 100%;
+    max-width: 45%;
+    min-width: 30%;
     margin: 30px;
     display: block;
 }
@@ -98,11 +100,19 @@ h1 {
 .message-container {
     background-color: white;
     height: 90%;
+    width: 100%;
     overflow: scroll;  
+    border-style: solid;
+    border-color: rgb(0, 0, 0);
 }
 
 .message {
     padding: 2px 7px;
 
+}
+
+input {
+    width: 80%;
+    height: 30px;
 }
 
