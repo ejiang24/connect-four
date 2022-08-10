@@ -3,6 +3,8 @@ import Piece from "./Piece"
 import socket from "../Socket"
 
 export default function Board() {
+    const [isGameOver, setIsGameOver] = React.useState(false)
+
     //======= PLAYER ========//
     const [isPlayerOne, setIsPlayerOne] = React.useState(true)
 
@@ -62,7 +64,7 @@ export default function Board() {
         setBoard(prev => [...prev]);
 
         if(winCheck(col, row, isPlayerOne)){
-            socket.emit("send_message", "winner found");
+            setIsGameOver(true)
         }
         
         changeTurn();
@@ -152,18 +154,48 @@ export default function Board() {
         return false;
     }
 
+    //RESET FUNCTIONALITY
+    function reset(){
+        for(let c = 0; c < 7; c++){
+            for(let r = 0; r < 6; r++){
+                board[c][r] = 0;
+            }
+        }
+        setBoard(prev => [...prev]);
+        setIsGameOver(false);
+        setIsPlayerOne(true);
+    }
+
+    function sendReset(){
+        reset();
+        socket.emit("reset");
+    }
+
     React.useEffect(() => {
         socket.on("receive_drop_piece", (data) => {
             dropPiece(data[0], data[1], data[2])
-        })
+        });
+        socket.on("receive_reset", () => {
+            reset();
+        });
     }, [socket])
 
 
     return (
-        <div className='board-container'>
-            <h4>Current Player: {isPlayerOne ? "One" : "Two"}</h4>
-            <div className='board'>{boardElement}</div>
+        <div>
+            <h4>Current Player: {isPlayerOne ? 'One' : 'Two'}</h4>
+            <div className='board-container'>
+                
+                <div className='board'>
+                    {boardElement}
+                    {isGameOver && <div className='game-over-screen'>
+                        <h3>GAME OVER</h3>
+                        <button onClick={sendReset}>RESET</button>
+                    </div>}
+                </div>
+            </div>   
         </div>
+        
         
     )
 }

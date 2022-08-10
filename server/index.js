@@ -22,7 +22,12 @@ io.on("connection", (socket) => {
     })
     
     socket.on("send_message", (msg) => {
+        console.log("message received in server: " + msg)
         socket.broadcast.emit("receive_message", msg)
+    })
+
+    socket.on("reset", () => {
+        socket.broadcast.emit("receive_reset")
     })
 })
 
