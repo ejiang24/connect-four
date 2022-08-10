@@ -50,15 +50,41 @@ h1 {
 }
 
 .piece1 {
-    background-color: rgb(228, 40, 40);
+    background-color: rgb(243, 0, 0);
     width: 66px;
     height: 66px;
     margin: 10px;
     border-radius: 33px;
 }
 
+.piece1-5 {
+    background-color: rgb(218, 121, 108);
+    width: 66px;
+    height: 66px;
+    margin: 10px;
+    border-radius: 33px;
+}
+
+.piece1-1{
+    background-color: rgb(243, 0, 0);
+    width: 66px;
+    height: 66px;
+    margin: 10px;
+    border-radius: 33px;
+    box-shadow: 5px 5px 5px red;
+
+}
+
 .piece2 {
     background-color: rgb(55, 55, 233);
+    width: 66px;
+    height: 66px;
+    margin: 10px;
+    border-radius: 33px;
+}
+
+.piece2-5 {
+    background-color: rgb(135, 135, 204);
     width: 66px;
     height: 66px;
     margin: 10px;

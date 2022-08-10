@@ -4,6 +4,7 @@ import socket from "../Socket"
 
 export default function Board() {
     const [isGameOver, setIsGameOver] = React.useState(false)
+    const [hoverCoords, setHoverCoords] = React.useState([-1, -1])
 
     //======= PLAYER ========//
     const [isPlayerOne, setIsPlayerOne] = React.useState(true)
@@ -24,10 +25,29 @@ export default function Board() {
         [0, 0, 0, 0, 0, 0]
     ])
 
+    function handleMouseOver(col, row) {
+        board[col][row] = (isPlayerOne ? "1-5" : "2-5")
+        setBoard(prev => [...prev]);
+    }
+
+    function handleMouseLeave(col, row) {
+        if(board[col][row] != 1 && board[col][row] != 2){
+            board[col][row] = 0
+        setBoard(prev => [...prev]);
+        }   
+    }
+
     const boardElement = board.map((arr, index) => {
         return (
             <div 
                 onClick={() => sendDropPiece(index, findRow(index), isPlayerOne)}
+                onMouseEnter={() => {
+                    setHoverCoords([index, findRow(index)]);
+                    handleMouseOver(index, findRow(index));
+                }}
+                onMouseLeave={() => {
+                    handleMouseLeave(hoverCoords[0], hoverCoords[1])
+                }}
             >
                 {
                     arr.map((row, index2) => {
@@ -47,7 +67,7 @@ export default function Board() {
 
     function findRow(col) {
         for(let i = board[col].length; i >= 0; i--){
-            if (board[col][i] == 0){
+            if (board[col][i] == 0 || board[col][i] == "1-5" || board[col][i] == "2-5"){
                 return i
             }
         }
@@ -60,7 +80,9 @@ export default function Board() {
 
     //TODO: consider making col and row state
     function dropPiece(col, row, isPlayerOne) {
+        console.log("drop piece: " + row);
         board[col][row] = isPlayerOne ? "1" : "2";
+        
         setBoard(prev => [...prev]);
 
         if(winCheck(col, row, isPlayerOne)){
@@ -139,6 +161,13 @@ export default function Board() {
         for (let r = 0; r < 3; r++){
             if (board[col][r] == playerVal && board[col][row+1] == playerVal && 
                 board[col][r+2] == playerVal && board[col][row+2] == playerVal){
+                    /*
+                    board[col][r] = "1-1"
+                    board[col][row+1] = "1-1"
+                    board[col][r+2] = "1-1"
+                    board[col][row+2] = "1-1"
+                    setBoard(prev => [...prev]);
+                    */
                     return true;
                 }
         }
