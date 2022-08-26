@@ -5,8 +5,6 @@ import socket from "../Socket"
 export default function Board() {
     const [isGameOver, setIsGameOver] = React.useState(false)
     const [hoverCoords, setHoverCoords] = React.useState([-1, -1])
-
-    //======= PLAYER ========//
     const [isPlayerOne, setIsPlayerOne] = React.useState(true)
 
     function changeTurn() {
@@ -15,7 +13,9 @@ export default function Board() {
 
 
     //======= BOARD ========//
-    const [board, setBoard] = React.useState([
+    const [board, setBoard] = React.useState(
+        JSON.parse(localStorage.getItem("board")) ||
+        [
         [0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0],
@@ -42,6 +42,7 @@ export default function Board() {
             <div 
                 onClick={() => sendDropPiece(index, findRow(index), isPlayerOne)}
                 onMouseEnter={() => {
+                    //move this method into handlemouseover prob
                     setHoverCoords([index, findRow(index)]);
                     handleMouseOver(index, findRow(index));
                 }}
@@ -53,7 +54,6 @@ export default function Board() {
                     arr.map((row, index2) => {
                         return (
                             <Piece         
-                                playerOne={true}
                                 value={board[index][index2].toString()}
                                 col={index}
                                 row={index2}
@@ -74,15 +74,13 @@ export default function Board() {
         return -1
     }
 
-    //TODO: win check, draw check(?)
+    //TODO: draw check(?)
 
     //TODO: IF INVALID LOCATION, DISPLAY MESSAGE TO USER
 
     //TODO: consider making col and row state
     function dropPiece(col, row, isPlayerOne) {
-        console.log("drop piece: " + row);
         board[col][row] = isPlayerOne ? "1" : "2";
-        
         setBoard(prev => [...prev]);
 
         if(winCheck(col, row, isPlayerOne)){
@@ -209,20 +207,26 @@ export default function Board() {
         });
     }, [socket])
 
+    
+    React.useEffect(() => {
+        localStorage.setItem("board", JSON.stringify(board))
+    }, [board])
+    
 
+
+    //TODO: FIX THE ISGAMEOVER SHIT BC IT JUST LOOKS DUMB
     return (
         <div>
             <h4>Current Player: {isPlayerOne ? 'One' : 'Two'}</h4>
             <div className='board-container'>
-                
                 <div className='board'>
                     {boardElement}
-                    {isGameOver && <div className='game-over-screen'>
-                        <h3>GAME OVER</h3>
-                        <button onClick={sendReset}>RESET</button>
-                    </div>}
+                    {isGameOver && <div className='game-over-screen'></div>}
+                    {isGameOver && <h3>GAME OVER</h3>}
+                    {isGameOver && <button className='reset-button' onClick={sendReset}>RESET</button>}  
                 </div>
-            </div>   
+            </div>  
+            <button onClick={sendReset}>Clear board</button> 
         </div>
         
         

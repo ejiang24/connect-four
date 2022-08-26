@@ -9,11 +9,9 @@ export default function Chat() {
         if (msg.length > 0){
             setMessageList(prev => [...prev, msg])
         } 
-        console.log("messageList: " + messageList)
     }
 
     function sendMessage(msg) { 
-        console.log("passed in: " + msg)
         displayMessage(msg)
         setMessage("")
         socket.emit("send_message", msg)
@@ -27,14 +25,14 @@ export default function Chat() {
     })
 
     React.useEffect(() => {
-        socket.off("receive_message").on("receive_message", (msg) => {
+        socket.off("receive_message").on("receive_message", ({ msg ,  }) => {
             displayMessage(msg)
         })
     }, [socket])
 
     return (
         <div className='chat-container'>
-            <h3>Chat room yay</h3>
+            <h3>Chat Room</h3>
             <div className='message-container'>
                 {messagesElement}
             </div>
@@ -45,10 +43,8 @@ export default function Chat() {
                     setMessage(event.target.value);
                 }}
                 onKeyDown={(event) => {
-                    if (event.key === 'Enter') {
-                        console.log("State: " + message)
+                    if (event.key === 'Enter') {                       
                         sendMessage(message)
-                        console.log("State after: " + message)
                     }
                 }}
             />

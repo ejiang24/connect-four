@@ -1,31 +1,28 @@
 import React from 'react'
-import Board from "./components/Board"
-import Chat from "./components/Chat"
 
-function App() {
-  
 
-  /*
-  function sendChangeTurn() {
-    changeTurn()
-    console.log(isPlayerOne)
-    socket.emit("change_turn")
-  }
-  */
+import Home from "./pages/Home"
+import Game from "./pages/Game"
 
-  /*
-  React.useEffect(() => {
-    socket.on("receive_drop_piece", () => {
-      console.log("hm")
-      changeTurn()
-    })
-  }, [socket])
-*/
-  
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 
+function App() { 
   return (
     <div className="App">
-      <div className="header">
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />}/>
+          <Route path="/game/*" element={<Game />}/>
+        </Routes>
+      </Router>  
+    </div>
+  )
+}
+
+export default App;
+
+/*
+<div className="header">
         <h1>CONNECT FOUR</h1>
       </div>
       <main>
@@ -34,8 +31,4 @@ function App() {
           <Chat />
         </div>
       </main> 
-    </div>
-  );
-}
-
-export default App;
+*/
